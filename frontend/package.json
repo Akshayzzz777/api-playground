@@ -1,0 +1,13 @@
+{
+  "name": "me-api-frontend",
+  "version": "1.0.0",
+  "description": "Personal profile playground frontend",
+  "type": "module",
+  "scripts": {
+    "dev": "python -m http.server 3000",
+    "start": "python -m http.server 3000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

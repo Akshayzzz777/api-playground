@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Me-API Playground</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .status {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .status.healthy {
+      color: #27ae60;
+    }
+
+    .status.error {
+      color: #e74c3c;
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      background: #667eea;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #764ba2;
+    }
+
+    button.active {
+      background: #764ba2;
+      font-weight: bold;
+    }
+
+    .search-box {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+    }
+
+    .content {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #667eea;
+      padding-bottom: 10px;
+    }
+
+    .profile-card {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .profile-card h3 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .profile-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .info-item {
+      padding: 10px;
+      background: white;
+      border-radius: 4px;
+      border-left: 4px solid #667eea;
+    }
+
+    .info-label {
+      font-weight: bold;
+      color: #667eea;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .info-value {
+      color: #333;
+      margin-top: 5px;
+    }
+
+    .skills-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 10px;
+    }
+
+    .skill-tag {
+      background: #e8eaf6;
+      color: #667eea;
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      border: 1px solid #667eea;
+      text-align: center;
+    }
+
+    .project-card {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border-left: 4px solid #667eea;
+    }
+
+    .project-title {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .project-description {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .project-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .project-skill {
+      background: #667eea;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 10px;
+    }
+
+    .project-links a {
+      color: #667eea;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .project-links a:hover {
+      text-decoration: underline;
+    }
+
+    .work-card {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border-left: 4px solid #764ba2;
+    }
+
+    .work-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 8px;
+    }
+
+    .work-company {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .work-dates {
+      color: #999;
+      font-size: 13px;
+    }
+
+    .work-position {
+      color: #764ba2;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .work-description {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .education-card {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border-left: 4px solid #27ae60;
+    }
+
+    .education-school {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .education-degree {
+      color: #27ae60;
+      margin-bottom: 8px;
+    }
+
+    .education-years {
+      color: #999;
+      font-size: 13px;
+    }
+
+    .links-container {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .link-item {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      flex: 1;
+      min-width: 150px;
+      text-align: center;
+    }
+
+    .link-label {
+      font-size: 12px;
+      color: #999;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .link-value a {
+      color: #667eea;
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .link-value a:hover {
+      text-decoration: underline;
+    }
+
+    .empty-state {
+      text-align: center;
+      color: #999;
+      padding: 40px;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: #667eea;
+    }
+
+    .error {
+      background: #ffebee;
+      color: #c62828;
+      padding: 15px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      border-left: 4px solid #c62828;
+    }
+
+    .success {
+      background: #e8f5e9;
+      color: #2e7d32;
+      padding: 15px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      border-left: 4px solid #2e7d32;
+    }
+
+    .search-results {
+      margin-bottom: 20px;
+    }
+
+    .result-category {
+      margin-bottom: 15px;
+    }
+
+    .result-category h4 {
+      color: #667eea;
+      margin-bottom: 10px;
+    }
+
+    .result-item {
+      background: #f8f9fa;
+      padding: 10px 15px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+      border-left: 3px solid #667eea;
+    }
+
+    footer {
+      text-align: center;
+      color: white;
+      margin-top: 30px;
+      font-size: 13px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #27ae60;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      margin-left: 10px;
+    }
+
+    .badge.current {
+      background: #667eea;
+    }
+
+    @media (max-width: 768px) {
+      .profile-info {
+        grid-template-columns: 1fr;
+      }
+
+      .search-box {
+        flex-direction: column;
+      }
+
+      nav {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      .links-container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>👤 Me-API Playground</h1>
+      <p class="status" id="healthStatus">Checking API status...</p>
+      <nav>
+        <button onclick="switchSection('profile')" class="active">Profile</button>
+        <button onclick="switchSection('projects')">Projects</button>
+        <button onclick="switchSection('skills')">Skills</button>
+        <button onclick="switchSection('work')">Work</button>
+        <button onclick="switchSection('education')">Education</button>
+        <button onclick="switchSection('links')">Links</button>
+        <button onclick="switchSection('search')">Search</button>
+      </nav>
+    </header>
+
+    <div class="content">
+      <!-- Profile Section -->
+      <div id="profile" class="section active">
+        <h2>Profile</h2>
+        <div id="profileContent" class="loading">Loading...</div>
+      </div>
+
+      <!-- Projects Section -->
+      <div id="projects" class="section">
+        <h2>Projects</h2>
+        <div class="search-box">
+          <input
+            type="text"
+            id="skillFilter"
+            placeholder="Filter by skill (e.g., Python, React)..."
+            onkeyup="filterProjects(this.value)"
+          >
+          <button onclick="filterProjects(document.getElementById('skillFilter').value)">Filter</button>
+        </div>
+        <div id="projectsContent" class="loading">Loading...</div>
+      </div>
+
+      <!-- Skills Section -->
+      <div id="skills" class="section">
+        <h2>Top Skills</h2>
+        <div id="skillsContent" class="loading">Loading...</div>
+      </div>
+
+      <!-- Work Section -->
+      <div id="work" class="section">
+        <h2>Work Experience</h2>
+        <div id="workContent" class="loading">Loading...</div>
+      </div>
+
+      <!-- Education Section -->
+      <div id="education" class="section">
+        <h2>Education</h2>
+        <div id="educationContent" class="loading">Loading...</div>
+      </div>
+
+      <!-- Links Section -->
+      <div id="links" class="section">
+        <h2>Links</h2>
+        <div id="linksContent" class="loading">Loading...</div>
+      </div>
+
+      <!-- Search Section -->
+      <div id="search" class="section">
+        <h2>Search</h2>
+        <div class="search-box">
+          <input
+            type="text"
+            id="searchQuery"
+            placeholder="Search (e.g., Python, React, AWS)..."
+            onkeyup="if(event.key === 'Enter') performSearch()"
+          >
+          <button onclick="performSearch()">Search</button>
+        </div>
+        <div id="searchContent"></div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Me-API Playground • Built with Express.js & SQLite • <a href="#" onclick="openLinks()" style="color: white; text-decoration: underline;">View Full Profile</a></p>
+    </footer>
+  </div>
+
+  <script>
+    const API_BASE = 'http://localhost:5000';
+
+    // Initialize app
+    window.addEventListener('DOMContentLoaded', async () => {
+      checkHealth();
+      loadProfile();
+      loadProjects();
+      loadSkills();
+      loadWork();
+      loadEducation();
+      loadLinks();
+    });
+
+    // Check API health
+    async function checkHealth() {
+      try {
+        const res = await fetch(`${API_BASE}/health`);
+        const data = await res.json();
+        const statusEl = document.getElementById('healthStatus');
+        statusEl.textContent = `✓ API is ${data.status}`;
+        statusEl.classList.add('healthy');
+      } catch (error) {
+        const statusEl = document.getElementById('healthStatus');
+        statusEl.textContent = '✗ API unavailable';
+        statusEl.classList.add('error');
+        console.error('Health check failed:', error);
+      }
+    }
+
+    // Switch sections
+    function switchSection(sectionId) {
+      // Hide all sections
+      document.querySelectorAll('.section').forEach(el => {
+        el.classList.remove('active');
+      });
+
+      // Deactivate all buttons
+      document.querySelectorAll('nav button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      // Show selected section
+      document.getElementById(sectionId).classList.add('active');
+
+      // Activate button
+      event.target.classList.add('active');
+    }
+
+    // Load profile
+    async function loadProfile() {
+      try {
+        const res = await fetch(`${API_BASE}/profile`);
+        const data = await res.json();
+
+        const html = `
+          <div class="profile-card">
+            <h3>${data.profile.name}</h3>
+            <div class="profile-info">
+              <div class="info-item">
+                <div class="info-label">Email</div>
+                <div class="info-value">${data.profile.email}</div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">Member Since</div>
+                <div class="info-value">${new Date(data.profile.created_at).toLocaleDateString()}</div>
+              </div>
+            </div>
+          </div>
+
+          ${data.links ? `
+            <div class="profile-card">
+              <h3>Online Presence</h3>
+              <div class="links-container">
+                ${data.links.github ? `<div class="link-item"><div class="link-label">GitHub</div><div class="link-value"><a href="${data.links.github}" target="_blank">View Profile</a></div></div>` : ''}
+                ${data.links.linkedin ? `<div class="link-item"><div class="link-label">LinkedIn</div><div class="link-value"><a href="${data.links.linkedin}" target="_blank">View Profile</a></div></div>` : ''}
+                ${data.links.portfolio ? `<div class="link-item"><div class="link-label">Portfolio</div><div class="link-value"><a href="${data.links.portfolio}" target="_blank">Visit Site</a></div></div>` : ''}
+              </div>
+            </div>
+          ` : ''}
+
+          ${data.education && data.education.length > 0 ? `
+            <div class="profile-card">
+              <h3>Education</h3>
+              ${data.education.map(edu => `
+                <div style="margin-bottom: 15px;">
+                  <div class="education-school">${edu.school}</div>
+                  <div class="education-degree">${edu.degree}${edu.field ? ' in ' + edu.field : ''}</div>
+                  <div class="education-years">${edu.start_year} - ${edu.end_year}</div>
+                </div>
+              `).join('')}
+            </div>
+          ` : ''}
+
+          ${data.skills && data.skills.length > 0 ? `
+            <div class="profile-card">
+              <h3>Key Skills</h3>
+              <div class="skills-container">
+                ${data.skills.slice(0, 8).map(skill => `
+                  <div class="skill-tag" title="${skill.proficiency}">${skill.skill}</div>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
+
+          ${data.projects && data.projects.length > 0 ? `
+            <div class="profile-card">
+              <h3>Featured Projects</h3>
+              ${data.projects.slice(0, 3).map(project => `
+                <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #ddd;">
+                  <div class="project-title">${project.title}</div>
+                  <div class="project-description">${project.description || 'No description'}</div>
+                </div>
+              `).join('')}
+            </div>
+          ` : ''}
+        `;
+
+        document.getElementById('profileContent').innerHTML = html;
+      } catch (error) {
+        document.getElementById('profileContent').innerHTML = `<div class="error">Failed to load profile: ${error.message}</div>`;
+      }
+    }
+
+    // Load projects
+    async function loadProjects() {
+      try {
+        const res = await fetch(`${API_BASE}/projects`);
+        const projects = await res.json();
+
+        if (!projects || projects.length === 0) {
+          document.getElementById('projectsContent').innerHTML = '<div class="empty-state">No projects found</div>';
+          return;
+        }
+
+        const html = projects.map(project => `
+          <div class="project-card">
+            <div class="project-title">${project.title}</div>
+            <div class="project-description">${project.description || 'No description provided'}</div>
+            ${project.skills_used ? `
+              <div class="project-skills">
+                ${project.skills_used.split(',').map(skill => `
+                  <span class="project-skill">${skill.trim()}</span>
+                `).join('')}
+              </div>
+            ` : ''}
+            ${project.links && project.links.length > 0 ? `
+              <div class="project-links">
+                ${project.links.map(link => `
+                  <a href="${link.url}" target="_blank">${link.title}</a>
+                `).join('')}
+              </div>
+            ` : ''}
+          </div>
+        `).join('');
+
+        document.getElementById('projectsContent').innerHTML = html;
+      } catch (error) {
+        document.getElementById('projectsContent').innerHTML = `<div class="error">Failed to load projects: ${error.message}</div>`;
+      }
+    }
+
+    // Filter projects by skill
+    async function filterProjects(skill) {
+      if (!skill) {
+        loadProjects();
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/projects?skill=${encodeURIComponent(skill)}`);
+        const projects = await res.json();
+
+        if (!projects || projects.length === 0) {
+          document.getElementById('projectsContent').innerHTML = `<div class="empty-state">No projects found with skill "${skill}"</div>`;
+          return;
+        }
+
+        const html = projects.map(project => `
+          <div class="project-card">
+            <div class="project-title">${project.title}</div>
+            <div class="project-description">${project.description || 'No description provided'}</div>
+            ${project.skills_used ? `
+              <div class="project-skills">
+                ${project.skills_used.split(',').map(s => `
+                  <span class="project-skill ${s.trim().toLowerCase() === skill.toLowerCase() ? 'style="background:#667eea;color:white;"' : ''}">${s.trim()}</span>
+                `).join('')}
+              </div>
+            ` : ''}
+            ${project.links && project.links.length > 0 ? `
+              <div class="project-links">
+                ${project.links.map(link => `
+                  <a href="${link.url}" target="_blank">${link.title}</a>
+                `).join('')}
+              </div>
+            ` : ''}
+          </div>
+        `).join('');
+
+        document.getElementById('projectsContent').innerHTML = html;
+      } catch (error) {
+        document.getElementById('projectsContent').innerHTML = `<div class="error">Failed to filter projects: ${error.message}</div>`;
+      }
+    }
+
+    // Load skills
+    async function loadSkills() {
+      try {
+        const res = await fetch(`${API_BASE}/skills/top?limit=10`);
+        const skills = await res.json();
+
+        if (!skills || skills.length === 0) {
+          document.getElementById('skillsContent').innerHTML = '<div class="empty-state">No skills found</div>';
+          return;
+        }
+
+        const html = `
+          <div class="skills-container">
+            ${skills.map(skill => `
+              <div class="skill-tag" title="Proficiency: ${skill.proficiency}, Experience: ${skill.years_of_experience} years">
+                ${skill.skill}
+                <br>
+                <small>${skill.proficiency}</small>
+              </div>
+            `).join('')}
+          </div>
+        `;
+
+        document.getElementById('skillsContent').innerHTML = html;
+      } catch (error) {
+        document.getElementById('skillsContent').innerHTML = `<div class="error">Failed to load skills: ${error.message}</div>`;
+      }
+    }
+
+    // Load work experience
+    async function loadWork() {
+      try {
+        const res = await fetch(`${API_BASE}/work`);
+        const workExperience = await res.json();
+
+        if (!workExperience || workExperience.length === 0) {
+          document.getElementById('workContent').innerHTML = '<div class="empty-state">No work experience found</div>';
+          return;
+        }
+
+        const html = workExperience.map(work => `
+          <div class="work-card">
+            <div class="work-header">
+              <div>
+                <div class="work-company">${work.company}</div>
+                <div class="work-position">${work.position} ${work.is_current ? '<span class="badge current">Current</span>' : ''}</div>
+              </div>
+              <div class="work-dates">${formatDate(work.start_date)} - ${work.is_current ? 'Present' : formatDate(work.end_date)}</div>
+            </div>
+            <div class="work-description">${work.description || 'No description provided'}</div>
+          </div>
+        `).join('');
+
+        document.getElementById('workContent').innerHTML = html;
+      } catch (error) {
+        document.getElementById('workContent').innerHTML = `<div class="error">Failed to load work experience: ${error.message}</div>`;
+      }
+    }
+
+    // Load education
+    async function loadEducation() {
+      try {
+        const res = await fetch(`${API_BASE}/education`);
+        const education = await res.json();
+
+        if (!education || education.length === 0) {
+          document.getElementById('educationContent').innerHTML = '<div class="empty-state">No education found</div>';
+          return;
+        }
+
+        const html = education.map(edu => `
+          <div class="education-card">
+            <div class="education-school">${edu.school}</div>
+            <div class="education-degree">${edu.degree}${edu.field ? ' in ' + edu.field : ''}</div>
+            <div class="education-years">${edu.start_year} - ${edu.end_year}</div>
+          </div>
+        `).join('');
+
+        document.getElementById('educationContent').innerHTML = html;
+      } catch (error) {
+        document.getElementById('educationContent').innerHTML = `<div class="error">Failed to load education: ${error.message}</div>`;
+      }
+    }
+
+    // Load links
+    async function loadLinks() {
+      try {
+        const res = await fetch(`${API_BASE}/links`);
+        const links = await res.json();
+
+        const html = `
+          <div class="links-container">
+            ${links.github ? `<div class="link-item"><div class="link-label">GitHub</div><div class="link-value"><a href="${links.github}" target="_blank">@${links.github.split('/').pop()}</a></div></div>` : ''}
+            ${links.linkedin ? `<div class="link-item"><div class="link-label">LinkedIn</div><div class="link-value"><a href="${links.linkedin}" target="_blank">View Profile</a></div></div>` : ''}
+            ${links.portfolio ? `<div class="link-item"><div class="link-label">Portfolio</div><div class="link-value"><a href="${links.portfolio}" target="_blank">Visit Site</a></div></div>` : ''}
+          </div>
+        `;
+
+        document.getElementById('linksContent').innerHTML = html;
+      } catch (error) {
+        document.getElementById('linksContent').innerHTML = `<div class="error">Failed to load links: ${error.message}</div>`;
+      }
+    }
+
+    // Perform search
+    async function performSearch() {
+      const query = document.getElementById('searchQuery').value.trim();
+
+      if (!query) {
+        document.getElementById('searchContent').innerHTML = '<div class="empty-state">Enter a search query</div>';
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/search?q=${encodeURIComponent(query)}`);
+        const data = await res.json();
+
+        if (!data.results || (data.results.projects === 0 && data.results.skills === 0 && data.results.work === 0)) {
+          document.getElementById('searchContent').innerHTML = `<div class="empty-state">No results found for "${query}"</div>`;
+          return;
+        }
+
+        let html = `<div class="search-results"><strong>Found ${data.results.projects + data.results.skills + data.results.work} results</strong></div>`;
+
+        if (data.results.data.projects && data.results.data.projects.length > 0) {
+          html += `
+            <div class="result-category">
+              <h4>Projects (${data.results.data.projects.length})</h4>
+              ${data.results.data.projects.map(p => `
+                <div class="result-item"><strong>${p.title}</strong> - ${p.description ? p.description.substring(0, 100) + '...' : 'No description'}</div>
+              `).join('')}
+            </div>
+          `;
+        }
+
+        if (data.results.data.skills && data.results.data.skills.length > 0) {
+          html += `
+            <div class="result-category">
+              <h4>Skills (${data.results.data.skills.length})</h4>
+              ${data.results.data.skills.map(s => `
+                <div class="result-item"><strong>${s.skill}</strong> - ${s.proficiency}</div>
+              `).join('')}
+            </div>
+          `;
+        }
+
+        if (data.results.data.workExperience && data.results.data.workExperience.length > 0) {
+          html += `
+            <div class="result-category">
+              <h4>Work Experience (${data.results.data.workExperience.length})</h4>
+              ${data.results.data.workExperience.map(w => `
+                <div class="result-item"><strong>${w.position}</strong> at ${w.company}</div>
+              `).join('')}
+            </div>
+          `;
+        }
+
+        document.getElementById('searchContent').innerHTML = html;
+      } catch (error) {
+        document.getElementById('searchContent').innerHTML = `<div class="error">Search failed: ${error.message}</div>`;
+      }
+    }
+
+    // Utility function to format dates
+    function formatDate(dateString) {
+      if (!dateString) return 'N/A';
+      const [year, month] = dateString.split('-');
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      return `${months[parseInt(month) - 1]} ${year}`;
+    }
+
+    function openLinks() {
+      switchSection('links');
+    }
+  </script>
+</body>
+</html>

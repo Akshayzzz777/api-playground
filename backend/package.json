@@ -1,0 +1,28 @@
+{
+  "name": "me-api-backend",
+  "version": "1.0.0",
+  "description": "Personal profile API playground",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "cross-env NODE_ENV=development node --watch src/index.js",
+    "db:init": "node db/init.js",
+    "db:seed": "node db/seed.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "sqlite3": "^5.1.6",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "cross-env": "^7.0.3"
+  }
+}

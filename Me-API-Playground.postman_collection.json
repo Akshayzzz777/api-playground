@@ -1,0 +1,331 @@
+{
+  "info": {
+    "name": "Me-API Playground",
+    "description": "Collection of API endpoints for the Me-API Playground project",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health & Status",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/health",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["health"]
+            },
+            "description": "Check if API is running and healthy"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Profile",
+      "item": [
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/profile",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["profile"]
+            },
+            "description": "Retrieve complete profile with all associated data"
+          }
+        },
+        {
+          "name": "Create Profile",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Your Name\",\n  \"email\": \"your.email@example.com\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/profile",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["profile"]
+            },
+            "description": "Create a new profile"
+          }
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Name\",\n  \"email\": \"updated.email@example.com\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/profile/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["profile", "1"]
+            },
+            "description": "Update existing profile"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Projects",
+      "item": [
+        {
+          "name": "List All Projects",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/projects",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["projects"]
+            },
+            "description": "Get all projects"
+          }
+        },
+        {
+          "name": "Filter Projects by Skill",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/projects?skill=React",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["projects"],
+              "query": [
+                {
+                  "key": "skill",
+                  "value": "React"
+                }
+              ]
+            },
+            "description": "Filter projects by specific skill"
+          }
+        },
+        {
+          "name": "Create Project",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"New Project\",\n  \"description\": \"Project description here\",\n  \"links\": [\n    {\n      \"title\": \"GitHub\",\n      \"url\": \"https://github.com/...\"\n    },\n    {\n      \"title\": \"Live\",\n      \"url\": \"https://...\"\n    }\n  ],\n  \"skills_used\": \"React,Node.js,MongoDB\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/projects",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["projects"]
+            },
+            "description": "Create a new project"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Skills",
+      "item": [
+        {
+          "name": "List All Skills",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/skills",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["skills"]
+            },
+            "description": "Get all skills"
+          }
+        },
+        {
+          "name": "Get Top Skills",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/skills/top?limit=5",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["skills", "top"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            },
+            "description": "Get top skills by years of experience"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Work Experience",
+      "item": [
+        {
+          "name": "List Work Experience",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/work",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["work"]
+            },
+            "description": "Get all work experience"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Education",
+      "item": [
+        {
+          "name": "List Education",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/education",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["education"]
+            },
+            "description": "Get all education records"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Links",
+      "item": [
+        {
+          "name": "Get Links",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/links",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["links"]
+            },
+            "description": "Get GitHub, LinkedIn, and Portfolio links"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Search",
+      "item": [
+        {
+          "name": "Search - React",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/search?q=React",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["search"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "React"
+                }
+              ]
+            },
+            "description": "Search for projects, skills, and work experience containing 'React'"
+          }
+        },
+        {
+          "name": "Search - Python",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/search?q=Python",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["search"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "Python"
+                }
+              ]
+            },
+            "description": "Search for projects, skills, and work experience containing 'Python'"
+          }
+        },
+        {
+          "name": "Search - Full Stack",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/search?q=full-stack",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["search"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "full-stack"
+                }
+              ]
+            },
+            "description": "Search for full-stack related entries"
+          }
+        }
+      ]
+    }
+  ]
+}
