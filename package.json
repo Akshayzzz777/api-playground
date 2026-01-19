@@ -1,0 +1,26 @@
+{
+  "name": "api-playground",
+  "version": "1.0.0",
+  "description": "Personal profile playground with Express.js API and HTML frontend",
+  "main": "backend/src/index.js",
+  "scripts": {
+    "start": "cd backend && npm install && npm run db:init && npm run db:seed && npm start",
+    "dev": "cd backend && npm run dev",
+    "install-backend": "cd backend && npm install",
+    "db:init": "cd backend && npm run db:init",
+    "db:seed": "cd backend && npm run db:seed"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "keywords": [
+    "api",
+    "profile",
+    "express",
+    "nodejs",
+    "sqlite"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
