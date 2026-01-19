@@ -64,6 +64,37 @@ const dbRun = (query, params = []) => {
 
 // ===== ENDPOINTS =====
 
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Welcome to Me-API Playground',
+    version: '1.0.0',
+    description: 'Personal profile API with full-stack integration',
+    endpoints: {
+      health: 'GET /health',
+      profile: {
+        get: 'GET /profile',
+        create: 'POST /profile',
+        update: 'PUT /profile/:id'
+      },
+      projects: {
+        list: 'GET /projects',
+        filter: 'GET /projects?skill=<skill>',
+        create: 'POST /projects'
+      },
+      skills: {
+        list: 'GET /skills',
+        top: 'GET /skills/top?limit=5'
+      },
+      work: 'GET /work',
+      education: 'GET /education',
+      links: 'GET /links',
+      search: 'GET /search?q=<query>'
+    },
+    documentation: 'See README.md for complete API documentation'
+  });
+});
+
 // Health check
 app.get('/health', (req, res) => {
   res.status(200).json({
